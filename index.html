@@ -1,113 +1,189 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>episvr.top</title>
-    <link href="https://fontsapi.zeoseven.com/72/main/result.css" rel="stylesheet">
-    <link rel="icon" href="./logo.jpg" type="image/jpg" />
-    <style>
-      body {
-        font-family: "Zhi Mang Xing", serif;
-        background-color: white;
-        color: black;
-        margin: 0;
-        padding: 0;
-        text-align: center;
-      }
-      header {
-        font-size: 2em;
-        margin-top: 30px;
-        margin-bottom: 20px;
-        color: #333;
-      }
-      .avatar {
-        width: 80px;
-        height: 80px;
-        border-radius: 50%;
-        margin-top: 20px;
-        border: 2px solid #ccc;
-      }
-      .content {
-        margin: 20px;
-        font-size: 1.2em;
-      }
-      .links a {
-        text-decoration: none;
-        color: #333;
-        margin: 0 10px;
-      }
-      .links a:hover {
-        color: blue;
-        text-decoration: underline;
-      }
-      footer {
-        font-size: 0.8em;
-        color: #666;
-        margin-top: 40px;
-      }
-      button {
-        background: none;
-        color: #333;
-        border: none;
-        font-size: 1em;
-        text-decoration: none;
-        cursor: pointer;
-        margin-top: 20px;
-      }
-      button:hover {
-        text-decoration: underline;
-      }
-    </style>
-  </head>
-  <body>
-    <header>你好呀，我是Epi！</header>
 
-    <img src="./logo.jpg" alt="Epi的头像" class="avatar" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>episvr.top</title>
+  <link href="https://fontsapi.zeoseven.com/440/main/result.css" rel="stylesheet">
+  <link rel="icon" href="./logo.jpg" type="image/jpg" />
+  <style>
+    body {
+      background-color: #000080;
+      /* 深蓝背景 */
+      color: #FFFFFF;
+      font-family: "Huiwen-Fangsong", "Times New Roman", serif;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
 
-    <div class="content">
-      <p>欢迎来到我的个人主页！</p>
-      <p>
-        我是茫茫人海中的大学生中的一个，大二，读的是计算机专业，目前就读于 USTB
-      </p>
-      <p>我热爱音游、ACG、解谜，喜欢研究各种有趣的东西。</p>
-    </div>
+    table.main-layout {
+      width: 760px;
+      margin: 20px auto;
+      border: 2px solid #FFFF00;
+      background-color: #000000;
+    }
 
-    <div class="links">
-      <a href="https://blog.episvr.top" target="_blank">博客</a> |
-      <a href="https://puzzle.episvr.top" target="_blank">谜题</a>
-    </div>
+    .header-cell {
+      background-color: #800080;
+      padding: 10px;
+      font-size: 24px;
+      font-weight: bold;
+      color: #FFFFFF;
+    }
 
-    <button onclick="toggleLanguage()">English</button>
+    .menu-bar {
+      background-color: #C0C0C0;
+      padding: 5px;
+      border-bottom: 2px solid #FFFFFF;
+      font-weight: bold;
+    }
 
-    <footer>
-      <p>&copy; 2025 Epi</p>
-    </footer>
+    .menu-bar a {
+      color: #0000FF;
+      text-decoration: underline;
+      margin: 0 8px;
+    }
 
-    <script>
-      let isEnglish = false;
+    .menu-bar a:hover {
+      color: #FF00FF;
+    }
 
-      function toggleLanguage() {
-        isEnglish = !isEnglish;
+    .content-cell {
+      padding: 15px;
+      text-align: left;
+    }
 
-        if (isEnglish) {
-          document.querySelector("header").innerText = "Hello, I'm Epi!";
-          document.querySelector(".content").innerHTML = `
-          <p>Welcome to my personal homepage!</p>
-          <p>I\'m just one of the countless university students, a sophomore majoring in Computer Science at USTB.</p>
-          <p>I love rhythm games, ACG, puzzles, and I enjoy researching all kinds of interesting things.</p>
-        `;
-          document.querySelector("button").innerText = "中文";
-        } else {
-          document.querySelector("header").innerText = "你好呀，我是Epi！";
-          document.querySelector(".content").innerHTML = `
-          <p>欢迎来到我的个人主页！</p>
-          <p>我是茫茫人海中的大学生中的一个，大二，读的是计算机专业，目前就读于 USTB</p>
-          <p>我热爱音游、ACG、解谜，喜欢研究各种有趣的东西。</p>
-        `;
-          document.querySelector("button").innerText = "English";
-        }
-      }
-    </script>
-  </body>
+    .avatar {
+      width: 120px;
+      height: 120px;
+      border: 3px solid #FFFF00;
+      float: left;
+      margin-right: 15px;
+    }
+
+    .section-title {
+      font-size: 18px;
+      color: #FFFF00;
+      border-bottom: 1px dotted #FFFF00;
+      padding-bottom: 5px;
+      margin-top: 20px;
+    }
+
+    .guestbook-counter {
+      font-size: 12px;
+      margin-top: 20px;
+      text-align: center;
+      border-top: 1px dashed #FFFFFF;
+      padding-top: 10px;
+    }
+
+    .links {
+      margin-top: 10px;
+    }
+
+    .links a {
+      color: #00FFFF;
+      text-decoration: none;
+      margin: 0 8px;
+    }
+
+    .links a:hover {
+      color: #FF00FF;
+    }
+
+    button {
+      margin-top: 15px;
+      background: none;
+      border: 1px solid #FFFF00;
+      color: #FFFF00;
+      cursor: pointer;
+      padding: 5px 10px;
+    }
+
+    button:hover {
+      background: #FFFF00;
+      color: #000;
+    }
+
+    footer {
+      font-size: 0.8em;
+      color: #AAA;
+      margin-top: 20px;
+    }
+
+    .footer p {
+      margin: 0;
+      font-size: 12px;
+    }
+
+    .footer a {
+      color: #00ff00;
+      /* 绿色，与主题色保持一致 */
+      text-decoration: none;
+      /* 去掉下划线，更简洁 */
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+      /* 鼠标悬停时显示下划线 */
+    }
+  </style>
+</head>
+
+<body>
+
+  <table class="main-layout" cellspacing="0" cellpadding="0">
+    <tr>
+      <td colspan="2" class="header-cell">
+        EPI'S HOMEPAGE
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" class="menu-bar">
+        <a href="https://blog.episvr.top" target="_blank">Blog</a> |
+        <a href="https://puzzle.episvr.top" target="_blank">Nazo</a> |
+        <a href="#">Code</a> |
+        <a href="#">Note</a>
+      </td>
+    </tr>
+    <tr>
+      <td class="content-cell" valign="top">
+        <img src="./logo.jpg" alt="Epi的头像" class="avatar" />
+        <div id="intro">
+          <p><span style="font-size: 18px; font-weight: bold;">Epi</span></p>
+          <p>北京科技大学计算机学院，大三在读。</p>
+          <p>个人兴趣涉及音游、ACG、解谜与一些有趣的开源项目。</p>
+          <div style="text-align:center; margin-top:12px;">
+            <img src="assets/200w.webp">
+          </div>
+      </td>
+
+
+      <td width="200" class="content-cell" valign="top"
+        style="background-color: #000050; border-left: 1px solid #FFFF00;">
+        <p style="font-weight: bold; font-size: 16px;">更新</p>
+        <p>
+          <span style="color: #00FF00;">>> 2025.9.15</span><br>
+          站点上线。
+        </p>
+        <hr style="border: 1px dotted #FFFF00;">
+        <p>
+          <span style="color: #00FF00;">>> 2025.9.10</span><br>
+          重新设计了首页布局。
+        </p>
+      </td>
+    </tr>
+  </table>
+
+  <div class="footer">
+    <p class="pixel-font">
+      © 2025 Epi. All Rights Reserved. | <a href="https://beian.miit.gov.cn/" target="_blank"
+        class="pixel-font">京ICP备2025143249号</a>
+    </p>
+  </div>
+
+</body>
+
 </html>
