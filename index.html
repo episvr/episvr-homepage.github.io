@@ -1,189 +1,102 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>episvr.top</title>
-  <link href="https://fontsapi.zeoseven.com/440/main/result.css" rel="stylesheet">
-  <link rel="icon" href="./logo.jpg" type="image/jpg" />
-  <style>
-    body {
-      background-color: #000080;
-      /* 深蓝背景 */
-      color: #FFFFFF;
-      font-family: "Huiwen-Fangsong", "Times New Roman", serif;
-      margin: 0;
-      padding: 0;
-      text-align: center;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Epi's Home Page</title>
+    <style>
+        body {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+            font-family: "Times New Roman", Times, serif;
+            line-height: 1.5;
+            color: #000;
+        }
 
-    table.main-layout {
-      width: 760px;
-      margin: 20px auto;
-      border: 2px solid #FFFF00;
-      background-color: #000000;
-    }
+        a { color: #0000EE; }
+        a:visited { color: #551A8B; }
+        a:hover { text-decoration: underline;}
 
-    .header-cell {
-      background-color: #800080;
-      padding: 10px;
-      font-size: 24px;
-      font-weight: bold;
-      color: #FFFFFF;
-    }
+        h1 { font-size: 2.2em; margin-bottom: 5px; }
+        h2 { 
+            font-size: 1.5em; 
+            border-bottom: 1px solid #333; 
+            padding-bottom: 5px; 
+            margin-top: 40px; 
+        }
 
-    .menu-bar {
-      background-color: #C0C0C0;
-      padding: 5px;
-      border-bottom: 2px solid #FFFFFF;
-      font-weight: bold;
-    }
+        .profile-photo {
+            float: right;
+            margin-left: 20px;
+            padding: 2px;
+            max-width: 160px;
+        }
 
-    .menu-bar a {
-      color: #0000FF;
-      text-decoration: underline;
-      margin: 0 8px;
-    }
+        .nav {
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
 
-    .menu-bar a:hover {
-      color: #FF00FF;
-    }
+        .nav a { font-weight: bold; padding: 2px 6px; }
 
-    .content-cell {
-      padding: 15px;
-      text-align: left;
-    }
+        .update-list { list-style-type: none; padding-left: 0; }
+        .update-date { font-family: "Courier New", Courier, monospace; font-weight: bold; color: #333; margin-right: 15px; }
 
-    .avatar {
-      width: 120px;
-      height: 120px;
-      border: 3px solid #FFFF00;
-      float: left;
-      margin-right: 15px;
-    }
+        footer {
+            margin-top: 60px;
+            padding-top: 10px;
+            border-top: 3px double #ccc;
+            font-size: 0.9em;
+            color: #444;
+        }
 
-    .section-title {
-      font-size: 18px;
-      color: #FFFF00;
-      border-bottom: 1px dotted #FFFF00;
-      padding-bottom: 5px;
-      margin-top: 20px;
-    }
-
-    .guestbook-counter {
-      font-size: 12px;
-      margin-top: 20px;
-      text-align: center;
-      border-top: 1px dashed #FFFFFF;
-      padding-top: 10px;
-    }
-
-    .links {
-      margin-top: 10px;
-    }
-
-    .links a {
-      color: #00FFFF;
-      text-decoration: none;
-      margin: 0 8px;
-    }
-
-    .links a:hover {
-      color: #FF00FF;
-    }
-
-    button {
-      margin-top: 15px;
-      background: none;
-      border: 1px solid #FFFF00;
-      color: #FFFF00;
-      cursor: pointer;
-      padding: 5px 10px;
-    }
-
-    button:hover {
-      background: #FFFF00;
-      color: #000;
-    }
-
-    footer {
-      font-size: 0.8em;
-      color: #AAA;
-      margin-top: 20px;
-    }
-
-    .footer p {
-      margin: 0;
-      font-size: 12px;
-    }
-
-    .footer a {
-      color: #00ff00;
-      /* 绿色，与主题色保持一致 */
-      text-decoration: none;
-      /* 去掉下划线，更简洁 */
-    }
-
-    .footer a:hover {
-      text-decoration: underline;
-      /* 鼠标悬停时显示下划线 */
-    }
-  </style>
+        @media (max-width: 600px) {
+            .profile-photo { float: none; display: block; margin: 0 auto 20px; }
+            .nav { word-spacing: 5px; }
+        }
+    </style>
 </head>
-
 <body>
 
-  <table class="main-layout" cellspacing="0" cellpadding="0">
-    <tr>
-      <td colspan="2" class="header-cell">
-        EPI'S HOMEPAGE
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2" class="menu-bar">
-        <a href="https://blog.episvr.top" target="_blank">Blog</a> |
-        <a href="https://puzzle.episvr.top" target="_blank">Nazo</a> |
-        <a href="#">Code</a> |
-        <a href="#">Note</a>
-      </td>
-    </tr>
-    <tr>
-      <td class="content-cell" valign="top">
-        <img src="./logo.jpg" alt="Epi的头像" class="avatar" />
-        <div id="intro">
-          <p><span style="font-size: 18px; font-weight: bold;">Epi</span></p>
-          <p>北京科技大学计算机与通信工程学院，大三在读。</p>
-          <p>个人兴趣涉及音游、ACG、解谜与一些有趣的开源项目。</p>
-          <div style="text-align:center; margin-top:12px;">
-            <img src="assets/200w.webp">
-          </div>
-      </td>
+    <img src="./logo.jpg" alt="Photo of Epi" class="profile-photo">
+    <img src="./assets/signsp.png" alt="sign of Epi" style="height: 4em; vertical-align: middle; margin: 0; padding: 0;">
 
+    <div class="nav">
+        <a href="https://blog.episvr.top">Blog</a>
+        <a href="https://puzzle.episvr.top">Nazo</a>
+        <a href="#">Code</a>
+        <a href="https://blog.episvr.top/episvr-noteblog-frontpage">Notes</a>
+    </div>
 
-      <td width="200" class="content-cell" valign="top"
-        style="background-color: #000050; border-left: 1px solid #FFFF00;">
-        <p style="font-weight: bold; font-size: 16px;">更新</p>
-        <p>
-          <span style="color: #00FF00;">>> 2025.9.15</span><br>
-          站点上线。
-        </p>
-        <hr style="border: 1px dotted #FFFF00;">
-        <p>
-          <span style="color: #00FF00;">>> 2025.9.10</span><br>
-          重新设计了首页布局。
-        </p>
-      </td>
-    </tr>
-  </table>
-
-  <div class="footer">
-    <p class="pixel-font">
-      © 2025 Epi. All Rights Reserved. | <a href="https://beian.miit.gov.cn/" target="_blank"
-        class="pixel-font">京ICP备2025143249号</a>
+    <p>
+        Welcome. I am <b>Epi</b>.
+    <p>
+    I am currently pursuing a <b>B.Eng.</b> at the School of Computer and Communication Engineering, 
+    University of Science and Technology Beijing (USTB).
     </p>
-  </div>
+
+    <p>
+        My interests include open-source software and puzzles  (specifically puzzlehunt-style puzzles).
+    </p>
+
+    <h2>Recent Updates</h2>
+    <ul class="update-list">
+        <li><span class="update-date">2026-04-02</span> Launched the Note platform.</li>
+        <li><span class="update-date">2026-03-25</span> Minor site-wide refinements and style adjustments.</li>
+        <li><span class="update-date">2025-09-15</span> Site reconstructed and officially relaunched as a central hub.</li>
+        <li><span class="update-date">2025-09-10</span> Launched the <a href="https://puzzle.episvr.top">Nazo Puzzle</a> platform.</li>
+        <li><span class="update-date">2024-08-10</span> Migrated the personal blog to a new architecture.</li>
+        <li><span class="update-date">2023-09-14</span> Initial publication of the blog pages.</li>
+    </ul>
+
+    <footer>
+        <p>
+            © 2023-2026 Epi | 
+            <a href="https://beian.miit.gov.cn/">京ICP备2025143249号</a> | 
+            <i>Last modified: March 25, 2026</i>
+        </p>
+    </footer>
 
 </body>
-
 </html>
