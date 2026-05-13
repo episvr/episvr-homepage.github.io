@@ -5,99 +5,671 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Epi's Home Page</title>
     <style>
-        body {
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 0 20px;
-            font-family: "Times New Roman", Times, serif;
-            line-height: 1.5;
-            color: #000;
+        :root {
+            --bg: #fdfbf6;
+            --text: #1c1c1c;
+            --muted: #6b6b6b;
+            --accent: #3a6b8c;
+            --rule: #e0dbd0;
+            --border: #d4cfc3;
+            --card-bg: #faf8f2;
+            --card-shadow: 0 6px 36px rgba(0,0,0,0.09), 0 1px 4px rgba(0,0,0,0.05);
         }
 
-        a { color: #0000EE; }
-        a:visited { color: #551A8B; }
-        a:hover { text-decoration: underline;}
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        h1 { font-size: 2.2em; margin-bottom: 5px; }
-        h2 { 
-            font-size: 1.5em; 
-            border-bottom: 1px solid #333; 
-            padding-bottom: 5px; 
-            margin-top: 40px; 
+        body {
+            max-width: 720px;
+            margin: 64px auto;
+            padding: 0 28px;
+            font-family: Georgia, "Times New Roman", "Noto Serif SC", "STSong", serif;
+            font-size: 17px;
+            line-height: 1.65;
+            color: var(--text);
+            background: var(--bg);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1 {
+            font-size: 2.2em;
+            font-weight: 400;
+            letter-spacing: -0.015em;
+            margin-bottom: 2px;
+        }
+
+        h2 {
+            font-size: 1.1em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.09em;
+            color: var(--muted);
+            border-bottom: 1px solid var(--rule);
+            padding-bottom: 7px;
+            margin-top: 46px;
+            margin-bottom: 14px;
+        }
+
+        a { color: var(--accent); text-decoration: none; transition: color 0.2s; }
+        a:hover { color: #234a63; }
+
+        p { margin-bottom: 0.75em; }
+        p:last-child { margin-bottom: 0; }
+
+        b, strong { font-weight: 600; }
+
+        /* ── Header ── */
+        .header-row {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 24px;
+            margin-bottom: 6px;
+        }
+
+        .header-left { flex: 1; }
+
+        .signature {
+            height: 3.4em;
+            vertical-align: middle;
+            margin-bottom: 10px;
+            display: block;
         }
 
         .profile-photo {
-            float: right;
-            margin-left: 20px;
-            padding: 2px;
-            max-width: 160px;
+            width: 130px;
+            flex-shrink: 0;
+            border-radius: 3px;
+            filter: grayscale(15%);
+            transition: filter 0.4s;
         }
+        .profile-photo:hover { filter: grayscale(0%); }
 
+        /* ── Nav ── */
         .nav {
-            margin-bottom: 30px;
-            font-size: 1.1em;
+            display: flex;
+            gap: 2px;
+            margin: 26px 0 34px;
         }
 
-        .nav a { font-weight: bold; padding: 2px 6px; }
+        .nav a {
+            font-size: 0.9em;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            padding: 5px 14px;
+            color: var(--muted);
+            transition: color 0.2s;
+        }
+        .nav a:hover { color: var(--accent); }
 
-        .update-list { list-style-type: none; padding-left: 0; }
-        .update-date { font-family: "Courier New", Courier, monospace; font-weight: bold; color: #333; margin-right: 15px; }
+        /* ── Bio ── */
+        .bio { max-width: 540px; }
 
+        /* ── OSS Trigger ── */
+        .oss-trigger {
+            display: inline;
+            cursor: default;
+            border-bottom: 1px dotted var(--accent);
+            padding-bottom: 1px;
+            position: relative;
+        }
+
+        .oss-trigger::after {
+            content: '›';
+            display: inline-block;
+            margin-left: 2px;
+            font-size: 0.9em;
+            color: var(--accent);
+            transition: transform 0.25s ease;
+            vertical-align: baseline;
+        }
+
+        .oss-trigger.active::after {
+            transform: rotate(90deg);
+        }
+
+        /* ── Floating Card ── */
+        .oss-float {
+            position: fixed;
+            width: 280px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            box-shadow: var(--card-shadow);
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+            cursor: default;
+        }
+
+        .oss-float.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .oss-float-inner {
+            padding: 18px 20px;
+        }
+
+        .oss-float-header {
+            font-size: 0.7em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--muted);
+            margin-bottom: 14px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--rule);
+        }
+
+        .prj-item {
+            margin-bottom: 16px;
+        }
+        .prj-item:last-child { margin-bottom: 0; }
+
+        .prj-name {
+            font-size: 0.95em;
+            font-weight: 600;
+            color: var(--text);
+        }
+        .prj-name a {
+            color: var(--text);
+            transition: color 0.2s;
+        }
+        .prj-name a:hover { color: var(--accent); }
+
+        .prj-tag {
+            display: inline-block;
+            font-size: 0.62em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            padding: 2px 7px;
+            border-radius: 2px;
+            margin-left: 6px;
+            vertical-align: middle;
+            background: #e8e4d8;
+            color: var(--muted);
+        }
+
+        .prj-desc {
+            font-size: 0.82em;
+            color: var(--muted);
+            margin-top: 3px;
+            line-height: 1.45;
+        }
+
+        .prj-links {
+            font-size: 0.75em;
+            margin-top: 4px;
+        }
+        .prj-links a {
+            color: var(--accent);
+            font-family: "SF Mono", "Cascadia Code", "Consolas", monospace;
+            font-size: 0.9em;
+        }
+
+        /* ── Updates ── */
+        .update-list { list-style: none; }
+
+        .update-list li {
+            padding: 4px 0;
+            display: flex;
+            align-items: baseline;
+            gap: 16px;
+            transition: transform 0.25s ease;
+        }
+        .update-list li:hover {
+            transform: translateX(3px);
+        }
+
+        .update-date {
+            font-family: "SF Mono", "Cascadia Code", "Consolas", "Courier New", monospace;
+            font-size: 0.78em;
+            font-weight: 500;
+            color: var(--muted);
+            white-space: nowrap;
+            min-width: 6.8em;
+            opacity: 0.75;
+        }
+
+        /* ── Footer ── */
         footer {
             margin-top: 60px;
-            padding-top: 10px;
-            border-top: 3px double #ccc;
-            font-size: 0.9em;
-            color: #444;
+            padding-top: 14px;
+            border-top: 1px solid var(--border);
+            font-size: 0.8em;
+            color: var(--muted);
+        }
+        footer a { color: var(--muted); }
+        footer a:hover { color: var(--accent); }
+
+        footer p { margin: 0; }
+
+        /* ── Mystic Counter ── */
+        .mystic-container {
+            position: fixed;
+            bottom: 30px;
+            right: 34px;
+            z-index: 50;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            user-select: none;
         }
 
+        .mystic-sigil {
+            font-size: 18px;
+            color: var(--muted);
+            opacity: 0.16;
+            cursor: pointer;
+            transition: opacity 0.5s ease;
+            line-height: 1;
+            background: none;
+            border: none;
+            padding: 6px;
+            font-family: inherit;
+        }
+
+        .mystic-sigil:hover {
+            opacity: 0.55;
+        }
+
+        .mystic-count {
+            font-family: "SF Mono", "Cascadia Code", "Consolas", monospace;
+            font-size: 9px;
+            color: var(--muted);
+            opacity: 0;
+            pointer-events: none;
+            margin-bottom: 1px;
+            letter-spacing: 0.06em;
+        }
+
+        /* ── Animation init ── */
+        .anim-in {
+            opacity: 0;
+            transform: translateY(18px);
+        }
+
+        /* ── Responsive ── */
         @media (max-width: 600px) {
-            .profile-photo { float: none; display: block; margin: 0 auto 20px; }
-            .nav { word-spacing: 5px; }
+            body {
+                margin: 32px auto;
+                font-size: 16px;
+            }
+
+            .header-row {
+                flex-direction: column-reverse;
+                align-items: center;
+                text-align: center;
+            }
+            .header-left { display: flex; flex-direction: column; align-items: center; }
+            .profile-photo { width: 110px; margin-bottom: 12px; }
+            .signature { height: 2.6em; }
+
+            h1 { font-size: 1.7em; }
+
+            .nav {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            .nav a { font-size: 0.82em; padding: 4px 10px; }
+
+            .oss-float {
+                width: calc(100vw - 48px);
+                max-width: 300px;
+            }
+
+            .update-list li {
+                flex-direction: column;
+                gap: 0;
+                padding: 5px 0;
+            }
+            .update-date { min-width: auto; margin-bottom: 1px; }
+
+            .bio { max-width: 100%; }
         }
     </style>
 </head>
 <body>
 
-    <img src="./logo.jpg" alt="Photo of Epi" class="profile-photo">
-    <img src="./assets/signsp.png" alt="sign of Epi" style="height: 4em; vertical-align: middle; margin: 0; padding: 0;">
+    <div class="header-row">
+        <div class="header-left">
+            <img src="./assets/signsp.png" alt="sign of Epi" class="signature anim-in">
+        </div>
+        <img src="./logo.jpg" alt="Photo of Epi" class="profile-photo anim-in">
+    </div>
 
-    <div class="nav">
+    <nav class="nav anim-in">
         <a href="https://blog.episvr.top">Blog</a>
         <a href="https://puzzle.episvr.top">Nazo</a>
         <a href="#">Code</a>
         <a href="https://blog.episvr.top/episvr-noteblog-frontpage">Notes</a>
+    </nav>
+
+    <div class="bio anim-in">
+        <p>Welcome. I am <b>Epi</b>.</p>
+        <p>
+            I am currently pursuing a <b>B.Eng. in Computer Science</b> at the School of Computer and Communication Engineering,
+            University of Science and Technology Beijing (USTB).
+        </p>
+        <p>
+            My interests include
+            <span class="oss-trigger" id="ossTrigger">open-source software</span>
+            and puzzles (specifically puzzlehunt-style puzzles).
+        </p>
     </div>
 
-    <p>
-        Welcome. I am <b>Epi</b>.
-    </p>
-    <p>
-    I am currently pursuing a <b>B.Eng. in Computer Science </b> at the School of Computer and Communication Engineering, 
-    University of Science and Technology Beijing (USTB).
-    </p>
+    <!-- Floating card — positioned via JS, lives at body level for proper fixed positioning -->
+    <div class="oss-float" id="ossFloat">
+        <div class="oss-float-inner">
+            <div class="oss-float-header">Open-Source Projects</div>
 
-    <p>
-        My interests include open-source software and puzzles  (specifically puzzlehunt-style puzzles).
-    </p>
+            <div class="prj-item">
+                <div class="prj-name">
+                    <a href="https://github.com/episvr/ask">ask</a>
+                    <span class="prj-tag">Personal</span>
+                </div>
+                <div class="prj-desc">
+                    A personal AI assistant CLI tool for streamlined daily development workflows.
+                </div>
+                <div class="prj-links">
+                    <a href="https://github.com/episvr/ask">github.com/episvr/ask</a>
+                </div>
+            </div>
 
-    <h2>Recent Updates</h2>
+            <div class="prj-item">
+                <div class="prj-name">
+                    <a href="https://github.com/Source-of-USTB/Velotask">Velotask</a>
+                    <span class="prj-tag">Team Lead</span>
+                </div>
+                <div class="prj-desc">
+                    A high-performance cross-platform TodoList app. Built with Flutter &amp; Provider, deployed on iOS and Android.
+                </div>
+                <div class="prj-links">
+                    <a href="https://github.com/Source-of-USTB/Velotask">github.com/Source-of-USTB/Velotask</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="anim-in">Recent Updates</h2>
     <ul class="update-list">
-        <li><span class="update-date">2026-04-02</span> Launched the Note platform.</li>
-        <li><span class="update-date">2026-03-25</span> Minor site-wide refinements and style adjustments.</li>
-        <li><span class="update-date">2025-09-15</span> Site reconstructed and officially relaunched as a central hub.</li>
-        <li><span class="update-date">2025-09-10</span> Launched the <a href="https://puzzle.episvr.top">Nazo Puzzle</a> platform.</li>
-        <li><span class="update-date">2024-08-10</span> Migrated the personal blog to a new architecture.</li>
-        <li><span class="update-date">2023-09-14</span> Initial publication of the blog pages.</li>
+        <li class="anim-in"><span class="update-date">2026-04-02</span> Launched the Note platform.</li>
+        <li class="anim-in"><span class="update-date">2026-03-25</span> Minor site-wide refinements and style adjustments.</li>
+        <li class="anim-in"><span class="update-date">2025-09-15</span> Site reconstructed and officially relaunched as a central hub.</li>
+        <li class="anim-in"><span class="update-date">2025-09-10</span> Launched the <a href="https://puzzle.episvr.top">Nazo Puzzle</a> platform.</li>
+        <li class="anim-in"><span class="update-date">2024-08-10</span> Migrated the personal blog to a new architecture.</li>
+        <li class="anim-in"><span class="update-date">2023-09-14</span> Initial publication of the blog pages.</li>
     </ul>
 
-    <footer>
+    <!-- Mystic Counter -->
+    <div class="mystic-container">
+        <span class="mystic-count" id="mysticCount"></span>
+        <button class="mystic-sigil" id="mysticSigil" aria-label="mystic counter">◈</button>
+    </div>
+
+    <footer class="anim-in">
         <p>
-            © 2023-2026 Epi | 
-            <a href="https://beian.miit.gov.cn/">京ICP备2025143249号</a> | 
+            &copy; 2023&ndash;2026 Epi &nbsp;|&nbsp;
+            <a href="https://beian.miit.gov.cn/">京ICP备2025143249号</a> &nbsp;|&nbsp;
             <i>Last modified: March 25, 2026</i>
         </p>
     </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/animejs/dist/bundles/anime.umd.min.js"></script>
+    <script>
+        (function() {
+            var animate = anime.animate;
+
+            // ── Page entrance: staggered fade-up ──
+            var els = document.querySelectorAll('.anim-in');
+            animate(els, {
+                translateY: [24, 0],
+                opacity: [0, 1],
+                duration: 550,
+                delay: function(el, i) { return 80 + i * 70; },
+                ease: 'outCubic',
+            });
+
+            // ── Profile photo: subtle perpetual float ──
+            animate('.profile-photo', {
+                translateY: [0, -5, 0],
+                duration: 4200,
+                ease: 'inOutSine',
+                loop: true,
+                delay: 2000,
+            });
+
+            // ── Floating project card ──
+            var trigger = document.getElementById('ossTrigger');
+            var card = document.getElementById('ossFloat');
+            var hideTimer = null;
+            var cardVisible = false;
+
+            var items = card.querySelectorAll('.prj-item');
+
+            function resetItems() {
+                items.forEach(function(item) {
+                    item.style.opacity = '0';
+                    item.style.transform = 'translateX(6px)';
+                });
+            }
+
+            function positionCard() {
+                var tr = trigger.getBoundingClientRect();
+                var cardW = card.offsetWidth;
+                var cardH = card.offsetHeight;
+                var gap = 20;
+                var viewW = window.innerWidth;
+
+                // Prefer floating to the LEFT of the trigger text
+                var left = tr.left - cardW - gap;
+                var top = tr.top + tr.height / 2 - cardH / 2;
+
+                // Clamp vertically so card stays in viewport
+                var minTop = 12;
+                var maxTop = window.innerHeight - cardH - 12;
+                if (top < minTop) top = minTop;
+                if (top > maxTop) top = maxTop;
+
+                // If not enough room on the left, position below the trigger
+                if (left < 8) {
+                    left = Math.max(8, tr.left);
+                    // If card would overflow right edge, nudge left
+                    if (left + cardW > viewW - 8) {
+                        left = viewW - cardW - 8;
+                    }
+                    top = tr.bottom + 10;
+                    if (top + cardH > window.innerHeight - 8) {
+                        top = tr.top - cardH - 10;
+                    }
+                }
+
+                card.style.left = left + 'px';
+                card.style.top = top + 'px';
+            }
+
+            function showCard() {
+                if (hideTimer) { clearTimeout(hideTimer); hideTimer = null; }
+                if (cardVisible) return;
+                cardVisible = true;
+
+                resetItems();
+                positionCard();
+                card.classList.add('visible');
+                trigger.classList.add('active');
+
+                // Animate card container entrance
+                animate(card, {
+                    translateX: [-10, 0],
+                    opacity: [0, 1],
+                    duration: 380,
+                    ease: 'outCubic',
+                });
+
+                // Stagger project items
+                animate(items, {
+                    translateX: [6, 0],
+                    opacity: [0, 1],
+                    duration: 320,
+                    delay: function(el, i) { return 100 + i * 110; },
+                    ease: 'outCubic',
+                });
+            }
+
+            function hideCard() {
+                if (!cardVisible) return;
+                hideTimer = setTimeout(function() {
+                    cardVisible = false;
+                    card.classList.remove('visible');
+                    trigger.classList.remove('active');
+                    // Clear inline styles set by anime.js so CSS opacity:0 takes effect
+                    card.style.opacity = '';
+                    card.style.transform = '';
+                    resetItems();
+                }, 150);
+            }
+
+            trigger.addEventListener('mouseenter', showCard);
+            trigger.addEventListener('mouseleave', hideCard);
+
+            card.addEventListener('mouseenter', function() {
+                if (hideTimer) { clearTimeout(hideTimer); hideTimer = null; }
+            });
+            card.addEventListener('mouseleave', hideCard);
+
+            // Reposition on scroll/resize
+            window.addEventListener('scroll', function() {
+                if (cardVisible) positionCard();
+            }, { passive: true });
+            window.addEventListener('resize', function() {
+                if (cardVisible) positionCard();
+            }, { passive: true });
+
+            // Initial reset
+            resetItems();
+
+            // ── Mystic Counter ──
+            (function() {
+                var STORAGE_KEY = 'm';
+                var ENC_PASSPHRASE = 'the void between stars holds many secrets';
+
+                function bufToB64(buf) {
+                    var bytes = new Uint8Array(buf);
+                    var bin = '';
+                    for (var i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
+                    return btoa(bin);
+                }
+                function b64ToBuf(b64) {
+                    var bin = atob(b64);
+                    var buf = new Uint8Array(bin.length);
+                    for (var i = 0; i < bin.length; i++) buf[i] = bin.charCodeAt(i);
+                    return buf;
+                }
+
+                async function deriveKey(salt) {
+                    var enc = new TextEncoder();
+                    var keyMaterial = await crypto.subtle.importKey(
+                        'raw', enc.encode(ENC_PASSPHRASE), 'PBKDF2', false, ['deriveKey']
+                    );
+                    return crypto.subtle.deriveKey(
+                        { name: 'PBKDF2', salt: salt, iterations: 200000, hash: 'SHA-256' },
+                        keyMaterial,
+                        { name: 'AES-GCM', length: 256 },
+                        false,
+                        ['encrypt', 'decrypt']
+                    );
+                }
+
+                async function encrypt(plaintext) {
+                    var enc = new TextEncoder();
+                    var salt = crypto.getRandomValues(new Uint8Array(16));
+                    var iv = crypto.getRandomValues(new Uint8Array(12));
+                    var key = await deriveKey(salt);
+                    var ct = await crypto.subtle.encrypt(
+                        { name: 'AES-GCM', iv: iv }, key, enc.encode(plaintext)
+                    );
+                    var ctBytes = new Uint8Array(ct);
+                    var combined = new Uint8Array(16 + 12 + ctBytes.length);
+                    combined.set(salt, 0);
+                    combined.set(iv, 16);
+                    combined.set(ctBytes, 28);
+                    return bufToB64(combined);
+                }
+
+                async function decrypt(payload) {
+                    var combined;
+                    try { combined = b64ToBuf(payload); } catch(e) { return null; }
+                    if (combined.length < 29) return null;
+                    var salt = combined.slice(0, 16);
+                    var iv = combined.slice(16, 28);
+                    var ct = combined.slice(28);
+                    var key = await deriveKey(salt);
+                    var dec = new TextDecoder();
+                    try {
+                        var plain = await crypto.subtle.decrypt(
+                            { name: 'AES-GCM', iv: iv }, key, ct
+                        );
+                        return dec.decode(plain);
+                    } catch(e) {
+                        return null;
+                    }
+                }
+
+                var count = 0;
+                var sigil = document.getElementById('mysticSigil');
+                var countEl = document.getElementById('mysticCount');
+
+                async function loadCount() {
+                    var stored = localStorage.getItem(STORAGE_KEY);
+                    if (!stored) return;
+                    var decrypted = await decrypt(stored);
+                    if (decrypted !== null) {
+                        count = parseInt(decrypted, 10) || 0;
+                    }
+                }
+
+                async function saveCount() {
+                    try {
+                        var encrypted = await encrypt(String(count));
+                        localStorage.setItem(STORAGE_KEY, encrypted);
+                    } catch(e) {}
+                }
+
+                sigil.addEventListener('click', async function() {
+                    count++;
+                    await saveCount();
+                    countEl.textContent = count;
+
+                    // Pulse the sigil
+                    anime.animate(sigil, {
+                        scale: [1, 1.7, 1],
+                        opacity: [0.16, 0.9, 0.16],
+                        duration: 650,
+                        ease: 'outCubic'
+                    });
+
+                    // Ghostly number reveal
+                    anime.animate(countEl, {
+                        opacity: [0, 0.7, 0],
+                        translateY: [0, -14],
+                        duration: 2200,
+                        ease: 'outCubic'
+                    });
+                });
+
+                // Init: load and show count if > 0
+                loadCount().then(function() {
+                    if (count > 0) {
+                        countEl.textContent = count;
+                        countEl.style.opacity = '0.28';
+                    }
+                });
+            })();
+        })();
+    </script>
 
 </body>
 </html>
